@@ -14,14 +14,21 @@ namespace FirstWebService.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "una", "hello" };
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            if (id == 1)
+            {
+                return "jackpot";
+            }
+            else
+            {
+                return "value";
+            }
         }
 
         // POST api/values
