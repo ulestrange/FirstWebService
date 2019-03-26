@@ -11,7 +11,7 @@ async function getpostswithfetch2() {
 
         try {
             var response = await fetch("https://jsonplaceholder.typicode.com/Posts");
-            var j =  response.json()
+            var j =  await response.json()
             container.innerHTML = JSON.stringify(j)
         }
         catch (err) {
