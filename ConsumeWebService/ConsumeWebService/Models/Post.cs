@@ -9,7 +9,7 @@ namespace ConsumeWebService.Models
     {
 
         // this class is for testing a web api
-        // see https://jsonplaceholder.typicode.com/pos
+        // see https://jsonplaceholder.typicode.com/post
 
         public int UserId { get; set; }
         public int Id { get; set; }
