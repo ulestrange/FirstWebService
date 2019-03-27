@@ -12,6 +12,7 @@ namespace ConsumeWebService.Pages
 {
     public class DisplayPostsModel : PageModel
     {
+
         public int? Id { get; set; } 
 
         public Post Post { get; set; }
@@ -24,6 +25,13 @@ namespace ConsumeWebService.Pages
 
             public async Task<IActionResult> OnPostAsync(int id)
             {
+
+            // Note this code needs to change.
+            // Should only create one HTTPClient and then we should reuse it 
+            // throughout the application.
+
+            // It works for now :)
+
                 using (var client = new HttpClient())
                 {
                     try

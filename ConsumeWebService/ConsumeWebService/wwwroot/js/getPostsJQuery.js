@@ -15,6 +15,7 @@ $("#btngetposts").click(function () {
         url: 'https://jsonplaceholder.typicode.com/Posts/' + postid
     }).then(function (data) {
         $('#postid').html(data.id);
+        $('#posttitle').html(data.title);
         $('#postcontent').html(data.body);
     });
 });
