@@ -9,7 +9,8 @@ async function getpostswithfetch() {
 
     app.appendChild(container);
 
-    fetch("https://jsonplaceholder.typicode.com/Posts") //defaults to a get
+    fetch("https://jsonplaceholder.typicode1.com/Posts") //defaults to a get
         .then((response) => response.json()) // convert response to json
-        .then((j) => (container.innerHTML = JSON.stringify(j)))
+        .then((j) => (container.innerHTML = JSON.stringify(j))) // put json into the container - 
+        .catch((err) => (container.innerHTML = "Error, can't load " + fname + " " + err))
 }

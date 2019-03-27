@@ -10,12 +10,12 @@ async function getpostswithfetch2() {
     app.appendChild(container);
 
         try {
-            var response = await fetch("https://jsonplaceholder.typicode.com/Posts");
+            var response = await fetch("https://jsonplaceholder.typicode1.com/Posts");
             var j =  await response.json()
             container.innerHTML = JSON.stringify(j)
         }
         catch (err) {
-            container.innerHTML = "Error, can't load " + fname + " " + err
+            container.innerHTML = "Error, can't load " + fname + " " + err ;
         }
 
 }
