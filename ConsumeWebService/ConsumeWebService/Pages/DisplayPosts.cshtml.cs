@@ -13,7 +13,16 @@ namespace ConsumeWebService.Pages
     public class DisplayPostsModel : PageModel
     {
 
-        public int? Id { get; set; } 
+        private readonly IHttpClientFactory _clientFactory;
+
+        public DisplayPostsModel(IHttpClientFactory clientFactory)
+        {
+            _clientFactory = clientFactory;
+        }
+ 
+
+
+        public int? Id { get; set; }
 
         public Post Post { get; set; }
 
@@ -23,33 +32,27 @@ namespace ConsumeWebService.Pages
         }
 
 
-            public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync(int id)
+        {
+
+            var client = _clientFactory.CreateClient();
+
+            try
             {
+                client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+                HttpResponseMessage response = await client.GetAsync($"/posts/{id}");
+                response.EnsureSuccessStatusCode();
 
-            // Note this code needs to change.
-            // Should only create one HTTPClient and then we should reuse it 
-            // throughout the application.
-
-            // It works for now :)
-
-                using (var client = new HttpClient())
-                {
-                    try
-                    {
-                        client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
-                        HttpResponseMessage response = await client.GetAsync($"/posts/{id}");
-                        response.EnsureSuccessStatusCode();
-
-                        var stringResult = await response.Content.ReadAsStringAsync();
-                        Post = JsonConvert.DeserializeObject<Post>(stringResult);
-                        return Page();
-                    }
-                    catch (HttpRequestException httpRequestException)
-                    {
-                        return BadRequest($"Error getting data from jsonplaceholder {httpRequestException.Message}");
-                    }
-                }
-
+                var stringResult = await response.Content.ReadAsStringAsync();
+                Post = JsonConvert.DeserializeObject<Post>(stringResult);
+                return Page();
             }
+            catch (HttpRequestException httpRequestException)
+            {
+                return BadRequest($"Error getting data from jsonplaceholder {httpRequestException.Message}");
+            }
+
+
+        }
     }
 }
